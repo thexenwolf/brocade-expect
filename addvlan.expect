@@ -1,0 +1,56 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+set SSHADDR $env(SSH_ADDR)
+set SSHHOST $env(SSH_HOST)
+set SSHUSER $env(SSH_USER)
+set SSHPASS $env(SSH_PASS)
+set VLANID $env(VLAN_ID)
+set DEFPORTS "ethe 1 to 6 ethe 17 to 24"
+
+#spawn ./sshrunner $SSHUSER@$SSHADDR
+spawn ssh $SSHUSER@$SSHADDR
+
+expect "$SSHUSER@$SSHADDR's password:"
+
+send -- "$SSHPASS\n"
+
+expect "SSH@$SSHHOST>"
+
+send -- "enable\n"
+
+expect "User Name:"
+
+send -- "$SSHUSER\n"
+
+expect "Password:"
+
+send -- "$SSHPASS\n"
+
+expect "SSH@$SSHHOST#"
+
+send -- "configure terminal\n"
+
+expect "SSH@$SSHHOST\(config\)#"
+
+send -- "vlan $VLANID name VLAN_$VLANID by port\n"
+
+expect "SSH@$SSHHOST\(config-vlan-$VLANID\)#"
+
+send -- "tagged $DEFPORTS\n"
+
+expect {
+    "Added*" {}
+    "Port(s) * are already a member of VLAN $VLANID" {}
+}
+
+send -- "end\n"
+
+expect "SSH@$SSHHOST#"
+
+send -- "wr mem\n"
+
+expect "Write startup-config done."
+
+send -- "exit"
