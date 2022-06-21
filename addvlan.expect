@@ -9,7 +9,6 @@ set SSHPASS $env(SSH_PASS)
 set VLANID $env(VLAN_ID)
 set DEFPORTS "ethe 1 to 6 ethe 17 to 24"
 
-#spawn ./sshrunner $SSHUSER@$SSHADDR
 spawn ssh $SSHUSER@$SSHADDR
 
 expect "$SSHUSER@$SSHADDR's password:"
