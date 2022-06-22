@@ -26,4 +26,4 @@ if [[ -z $SSH_PASS ]]; then
   exit 1;
 fi
 
-VLAN_ID=$1 expect addvlan.expect
+VLAN_ID=$1 expect expect-scripts/addvlan.expect
