@@ -53,3 +53,7 @@ send -- "wr mem\n"
 expect "Write startup-config done."
 
 send -- "exit"
+
+expect "SSH@$SSHHOST>"
+
+send -- "exit"
