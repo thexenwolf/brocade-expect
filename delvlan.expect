@@ -1,0 +1,51 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+set SSHADDR $env(SSH_ADDR)
+set SSHHOST $env(SSH_HOST)
+set SSHUSER $env(SSH_USER)
+set SSHPASS $env(SSH_PASS)
+set VLANID $env(VLAN_ID)
+
+spawn ssh $SSHUSER@$SSHADDR
+
+expect "$SSHUSER@$SSHADDR's password:"
+
+send -- "$SSHPASS\n"
+
+expect "SSH@$SSHHOST>"
+
+send -- "enable\n"
+
+expect "User Name:"
+
+send -- "$SSHUSER\n"
+
+expect "Password:"
+
+send -- "$SSHPASS\n"
+
+expect "SSH@$SSHHOST#"
+
+send -- "configure terminal\n"
+
+expect "SSH@$SSHHOST\(config\)#"
+
+send -- "no vlan $VLANID\n"
+
+expect "SSH@$SSHHOST\(config\)#"
+
+send -- "end\n"
+
+expect "SSH@$SSHHOST#"
+
+send -- "wr mem\n"
+
+expect "Write startup-config done."
+
+send -- "exit"
+
+expect "SSH@$SSHHOST>"
+
+send -- "exit"
