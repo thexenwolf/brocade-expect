@@ -4,7 +4,7 @@ napalm-brocade requires too many fixes to work with modern tooling. F-it, using 
 
 ## Usage
 
-You must specify all of these environment variables before calling addvlan.sh
+You must specify all of these environment variables before calling any of the shell scripts.
 
 SSH_ADDR: The SSH address to connect to, hostname or IP
 
@@ -14,8 +14,8 @@ SSH_USER: The automation user with privilege 0 on the switch
 
 SSH_PASS: The password for the automation user
 
-Prepend all of these to your call to addvlan.sh, and suffix with the VLAN ID to add.
+Prepend all of these to your call to any of the shell scripts, and suffix with the VLAN ID to add.
 
 Example:
 
-    SSH_ADDR=127.0.0.1 SSH_HOST=brocade SSH_USER=automation SSH_PASS=totallysecurepassword ./addvlan.sh 101
+    SSH_ADDR=192.168.100.200 SSH_HOST=brocade SSH_USER=automation SSH_PASS=totallysecurepassword ./addvlan.sh 101
