@@ -57,3 +57,5 @@ send -- "exit\n"
 expect "SSH@$SSHHOST>"
 
 send -- "exit\n"
+
+expect eof
